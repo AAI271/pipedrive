@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Job</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .row{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+        .row .form-group{
+            width: 45%;
+        }
+        .form__section {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            width: 40%;
+        }
+        .form__section h3 {
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="date"],
+        .form-group input[type="time"] {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .form-group select {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .form-actions {
+            text-align: center;
+            margin: auto;
+        }
+        .form-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .form-actions .create-job {
+            background-color: #ffd700;
+        }
+        .form-actions .save-info {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create a Job</h1>
+        <form class="form" id="jobForm">
+            <div class="form__section">
+                <h3>Client details</h3>
+                <div class="form-group">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name">
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="form__section">
+                <h3>Job type</h3>
+                <div class="form-group">
+                    <label for="job_type">Job Type:</label>
+                    <select id="job_type" name="job_type" required>
+                        <option value="">Select job type</option>
+                        <option value="type1">Type 1</option>
+                        <option value="type2">Type 2</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="job_description">Job Description (optional):</label>
+                    <textarea id="job_description" name="job_description"></textarea>
+                </div>
+            </div>
+
+            <div class="form__section">
+                <h3>Service location</h3>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <input type="text" id="state" name="state" required>
+                </div>
+                <div class="form-group">
+                    <label for="region">Region:</label>
+                    <select id="region" name="region" required>
+                        <option value="Tampa">Tampa</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form__section">
+                <h3>Scheduled</h3>
+                <div class="form-group">
+                    <label for="job_date">Job Date:</label>
+                    <input type="date" id="job_date" name="job_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="job_start_time">Job Start Time:</label>
+                    <input type="time" id="job_start_time" name="job_start_time" required>
+                </div>
+                <div class="form-group">
+                    <label for="job_end_time">Job End Time:</label>
+                    <input type="time" id="job_end_time" name="job_end_time" required>
+                </div>
+                <div class="form-group">
+                    <label for="technician">Select Technician:</label>
+                    <select id="technician" name="technician" required>
+                        <option value="tech1">Technician 1</option>
+                        <option value="tech2">Technician 2</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="create-job">Create job</button>
+                <button type="button" class="save-info">Save info</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('jobForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const apiToken = '5f25f0b941bf75e3202e75d6e0abb3954a63db51'; 
+            const dealData = {
+                title: document.getElementById('job_type').value + " - " + document.getElementById('first_name').value + " " + document.getElementById('last_name').value,
+                value: 0, 
+                currency: "USD",
+                org_id: null,
+                person_id: null,
+                "4f10e2d5f191675c240670977caec9312f651368": document.getElementById('first_name').value,
+                "40411f062838e69be46c62e7a1bce6f94187418c": document.getElementById('last_name').value,
+                "b98c5200e878152e26abd6a7105adc6fb12b51a7": document.getElementById('phone').value,
+                "8989f23a82ef388f8f4ac2f45df143b16519875d": document.getElementById('email').value,
+                "1c6a914b9348a4eef10490bcc5beb39e5e875dd3": document.getElementById('address').value,
+                "dae991853416c9a78b1aa36abe77af01584a3446": document.getElementById('job_type').value,
+                "3c865d88482c3242423673a7bfd6acd8014eb314": document.getElementById('job_description').value,
+                "a69356ae9ece035e06bc53f4783709c02cea5964": document.getElementById('job_date').value,
+                "a785657cd9fc29789a116a6e446ca1cadcaf84ac": document.getElementById('job_start_time').value,
+                "f4e6768e552a8b8c6fdabfeaf7dc6ef83149ce77": document.getElementById('job_end_time').value,
+                "8b5d3c0abc59c0d156cd0e4bdf117b901fd0df92": document.getElementById('technician').value,
+            };
+
+            fetch(`https://api.pipedrive.com/v1/deals?api_token=${apiToken}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dealData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Deal added successfully!');
+                } else {
+                    alert('Failed to add deal: ' + data.error.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while adding the deal.');
+            });
+        });
+    </script>
+</body>
+</html>
